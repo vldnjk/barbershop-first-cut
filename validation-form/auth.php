@@ -3,7 +3,7 @@
     $pass = filter_var(trim($_POST['pass']), FILTER_SANITIZE_STRING);
     
     
-    $pass = md5($pass."stasibass1337sault"); 
+    $pass = md5($pass."secret-sault"); 
 
     //require "blocks/connect.php"
     $mysql = new mysqli('localhost','root','root','register-bd','3306');

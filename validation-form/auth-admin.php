@@ -3,11 +3,11 @@
     $pass = filter_var(trim($_POST['pass']), FILTER_SANITIZE_STRING);
     
     
-    $pass = md5($pass."stasibass1337sault"); 
+    $pass = md5($pass."secret-sault"); 
 
     //require "blocks/connect.php"
     $mysql = new mysqli('localhost','root','root','register-bd','3306');
-    $result = $mysql->query("SELECT * FROM users WHERE login = '$login' AND pass = '$pass'");
+    $result = $mysql->query("SELECT * FROM staff WHERE login = '$login' AND pass = '$pass'");
     $user = $result->fetch_assoc();
     if(count($user) == 0){
         echo "Такой пользователь не найден";
@@ -19,5 +19,5 @@
 
     $mysql->close();
 
-    header('Location: /');
+    header('Location: /admin-panel');
 ?>

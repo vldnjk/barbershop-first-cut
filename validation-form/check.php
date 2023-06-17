@@ -15,8 +15,8 @@
     }
     
     $pass = md5($pass."stasibass1337sault"); 
-    require "blocks/connect.php"
-    //$mysql = new mysqli('localhost','vladanx4_reg','8&6FLWih','vladanx4_reg');
+    //require "blocks/connect.php"
+    $mysql = new mysqli('localhost','root','root','register-bd','3306');
     $sql = "INSERT INTO users (login, pass, name) VALUES('$login', '$pass', '$name')";
     $mysql->query($sql);
     $mysql->close();

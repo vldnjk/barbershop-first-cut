@@ -13,11 +13,18 @@
         echo "Такой пользователь не найден";
         exit();
     }
-
-    setcookie('user', $user['name'], time() + 3600, "/");
-    
-
+    if ($user['role'] == 1){
+         setcookie('user', $user['name'], time() + 3600, "/admin.php");
+         $mysql->close();
+         header('Location: /admin.php');
+    }
+    elseif ($user['role'] == 2){
+        setcookie('user', $user['name'], time() + 3600, "/barber.php");
+        $mysql->close();
+        header('Location: /barber.php');
+    }
+ 
     $mysql->close();
-
-    header('Location: /admin-panel');
+    header('Location: /');
+    
 ?>

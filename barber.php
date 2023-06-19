@@ -4,7 +4,7 @@
 <head>
   <meta name="description" content="Webpage description goes here" />
   <meta charset="utf-8">
-  <title>Барбершоп "FIRST CUT" ПАНЕЛЬ АДМИНИСТРИРОВАНИЯ</title>
+  <title>Барбершоп "FIRST CUT" ПАНЕЛЬ БАРБЕРА</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
@@ -28,7 +28,7 @@
         </div>   
     </div>
     <?php else:?>
-        <p>Привет, <?=$_COOKIE['user']?>. Чтобы выйти нажмите <a href="/exit-admin.php">здесь</a> </p>
+        <p>Привет, парикмахер <?=$_COOKIE['user']?>. Чтобы выйти нажмите <a href="/exit-barber.php">здесь</a> </p>
     <?php endif;?>
    
 </body>

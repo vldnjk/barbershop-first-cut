@@ -14,7 +14,7 @@
         exit();
     }
     
-    $pass = md5($pass."stasibass1337sault"); 
+    $pass = md5($pass."secret-sault"); 
     //require "blocks/connect.php"
     $mysql = new mysqli('localhost','root','root','register-bd','3306');
     $sql = "INSERT INTO users (login, pass, name) VALUES('$login', '$pass', '$name')";

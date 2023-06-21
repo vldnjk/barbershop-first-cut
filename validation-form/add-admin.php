@@ -7,7 +7,7 @@
     
     
     $pass = md5($pass."secret-sault"); 
-    //require "blocks/connect.php"
+//    require "/blocks/connect.php";
     $mysql = new mysqli('localhost','root','root','register-bd','3306');
     $sql = "INSERT INTO staff (login, pass, name, status, role) VALUES('$login', '$pass', '$name', '$status', '$role')";
     $mysql->query($sql);

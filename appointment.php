@@ -17,24 +17,23 @@
 ?>
     <div class="container mt-4">
        <h1> Запись в барбершоп FIRST CUT</h1>
-       <form action="/zapisaca.php" method="post">
        <p>Привет <?=$_COOKIE['user']?>. Чтобы выйти нажмите <a href="/exit.php">здесь</a> </p>
-        <input type="text" name="user" id="user" placeholder = "user..." class="form-control">
-         <!-- <input type="text" name="barber" id="barber" placeholder = "barbner..." class="form-control">
-        <input type="text" name="service" id="service" placeholder = "service..." class="form-control"> -->
+       <form action="/validation-form/add-appoint.php" method="post">
+  
+        <!-- <input type="text" name="user" id="user" placeholder = "user..." class="form-control"> -->
         <?php
             $query_barber ="SELECT name FROM staff WHERE role = 2";
             $result_barber = $conn->query($query_barber);
             if($result_barber->num_rows> 0){
-            $options= mysqli_fetch_all($result_barber, MYSQLI_ASSOC);
+            $barbers= mysqli_fetch_all($result_barber, MYSQLI_ASSOC);
             }
         ?>
-        <select name="name">
+        <select name="barber">
             <option>Выберите сотрудника</option>
             <?php 
-            foreach ($options as $option) {
+            foreach ($barbers as $barber) {
             ?>
-            <option><?php echo $option['name']; ?> </option>
+            <option><?php echo $barber['name']; ?> </option>
             <?php 
             }
         ?>
@@ -43,41 +42,59 @@
             $query_service ="SELECT service FROM service";
             $result_service = $conn->query($query_service);
             if($result_service->num_rows> 0){
-            $options= mysqli_fetch_all($result_service, MYSQLI_ASSOC);
+            $services= mysqli_fetch_all($result_service, MYSQLI_ASSOC);
             }
         ?>
         <select name="service">
             <option>Выберите услугу</option>
             <?php 
-            foreach ($options as $option) {
+            foreach ($services as $service) {
             ?>
-            <option><?php echo $option['service']; ?> </option>
+            <option><?php echo $service['service']; ?> </option>
             <?php 
             }
         ?>
          </select>
         <input type="date" name="date" id="date" placeholder = "data..." class="form-control">
         <Br></Br>
-        <button type="submit" name="sendTask" class="btn btn-success"> OTPRAVIT</button>
+        <button type="submit" name="sendTask" class="btn btn-success"> Записаться </button>
        </form>
 
        <?php
-            $query_appointment ="SELECT name FROM appointment";
+            $cookies=$_COOKIE['user'];
+            $query_appointment ="SELECT barber, date FROM appointment WHERE name='$cookies'";
             $result_appointment = $conn->query($query_appointment);
             if($result_barber->num_rows> 0){
             $options= mysqli_fetch_all($result_appointment, MYSQLI_ASSOC);
             }
         ?>
-        <select name="name">
-            <option>ваши записи</option>
+        <td>Ваши записи:</td>
+        <title>Таблица</title>
+        <style type="text/css">
+        TABLE {
+            width: 300px; /* Ширина таблицы */
+            border-collapse: collapse; /* Убираем двойные линии между ячейками */
+        }
+        TD, TH {
+            padding: 3px; /* Поля вокруг содержимого таблицы */
+            border: 1px solid black; /* Параметры рамки */
+        }
+        TH {
+            background: #2BE890; /* Цвет фона */
+        }
+        </style>        
+        <table border="2"><tr><th>Барбер </th><th>Дата</th></tr>
+        
             <?php 
             foreach ($options as $option) {
-            ?>
-            <option><?php echo $option['name']; ?> </option>
+            ?><tr>
+            <td><?php echo $option['barber']; ?> </td>
+            <td><?php echo $option['date']; ?> </td>
+            </tr>
             <?php 
             }
         ?>
-         </select>
+         </table>
 
 
        

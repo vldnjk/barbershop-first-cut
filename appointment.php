@@ -62,7 +62,7 @@
 
        <?php
             $cookies=$_COOKIE['user'];
-            $query_appointment ="SELECT barber, date FROM appointment WHERE name='$cookies'";
+            $query_appointment ="SELECT barber, date, id FROM appointment WHERE name='$cookies' ORDER BY ";
             $result_appointment = $conn->query($query_appointment);
             if($result_barber->num_rows> 0){
             $options= mysqli_fetch_all($result_appointment, MYSQLI_ASSOC);
@@ -83,13 +83,50 @@
             background: #2BE890; /* Цвет фона */
         }
         </style>        
-        <table border="2"><tr><th>Барбер </th><th>Дата</th></tr>
+
+
+        <?php
+        /* Все варианты сортировки */
+        $sort_list = array(
+            'date_asc'   => '`date`',
+            'date_desc'  => '`date` DESC',
+            'barber_asc'  => '`barber`',
+            'barber_desc' => '`barber` DESC',   
+        );
+        
+        /* Проверка GET-переменной */
+        $sort = @$_GET['sort'];
+        if (array_key_exists($sort, $sort_list)) {
+            $sort_sql = $sort_list[$sort];
+        } else {
+            $sort_sql = reset($sort_list);
+        }
+        
+        /* Функция вывода ссылок */
+        function sort_link_th($title, $a, $b) {
+            $sort = @$_GET['sort'];
+        
+            if ($sort == $a) {
+                return '<a class="active" href="?sort=' . $b . '">' . $title . ' <i>▲</i></a>';
+            } elseif ($sort == $b) {
+                return '<a class="active" href="?sort=' . $a . '">' . $title . ' <i>▼</i></a>';  
+            } else {
+                return '<a href="?sort=' . $a . '">' . $title . '</a>';  
+            }
+        }
+        ?>
+
+        <table border="2"><tr><th><?php echo sort_link_th('Барбер', 'barber_asc', 'barber_desc'); ?> </th><th><?php echo sort_link_th('Дата', 'date_asc', 'date_desc'); ?></th><th> Отменить запись </th></tr>
         
             <?php 
             foreach ($options as $option) {
             ?><tr>
+            <? $var_id = $option['id']; ?>
             <td><?php echo $option['barber']; ?> </td>
             <td><?php echo $option['date']; ?> </td>
+            <?php
+            echo '<td><a href="/delete.php?id='.$var_id.'"><button type="submit" name="sendTask" class="btn btn-warning"> Отменить </button></a></td>'
+            ?>
             </tr>
             <?php 
             }

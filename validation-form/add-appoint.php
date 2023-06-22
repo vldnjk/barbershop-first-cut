@@ -10,6 +10,5 @@
     $mysql->query($sql);
     $mysql->close();
 
-    header('Location: /');
+    header('Location: /appointment.php');
 ?>
-И ТРИ ИНСЕРТА ИЗ В ТЬОБЛИЧУКЕ
